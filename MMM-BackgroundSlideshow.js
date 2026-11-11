@@ -516,6 +516,16 @@ Module.register('MMM-BackgroundSlideshow', {
       const imageDiv = this.createDiv();
       imageDiv.style.backgroundImage = `url("${image.src}")`;
       // imageDiv.style.transform = 'rotate(0deg)';
+      // Dynamic backgroundSize based on filename
+      const filename = imageinfo.path.split('/').pop().toLowerCase();
+      if (filename.startsWith('horz_')) {
+        imageDiv.style.backgroundSize = 'cover';
+      } else if (filename.startsWith('vert_')) {
+        imageDiv.style.backgroundSize = 'contain';
+      } else {
+        // fallback to whatever is in config
+        imageDiv.style.backgroundSize = this.config.backgroundSize;
+      }
 
       // this.div1.style.backgroundImage = `url("${image.src}")`;
       // this.div1.style.opacity = '1';
